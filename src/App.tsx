@@ -19,17 +19,17 @@ const thinkingModules: ThinkingData[] = [
   {
     title: 'Why pricing is rarely the problem',
     description:
-      'When teams say price is the blocker, I usually hear a clarity problem. People cannot place the product in a specific moment of use.',
+      'When price comes up as the blocker, I usually look somewhere else first. Most of the time, the real issue is clarity around when and how the product actually gets used.',
     videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     transcript: [
-      'Pricing feels like the obvious variable because everyone can point to it. But visible does not mean causal.',
-      'Most stalled deals are not about cost. They are about uncertainty around timing, ownership, and expected result.',
-      'If buyers are still asking basic “when would we use this?” questions, lowering the number does not resolve the decision.',
+      'Pricing is visible, so it gets blamed. But visible doesn\'t mean it\'s the problem.',
+      'What usually sits underneath is uncertainty—around timing, who owns the decision, what happens if it doesn\'t work.',
+      'If someone\'s still asking when would we even use this, cutting the price by 20% won\'t change that.',
     ],
     insights: [
-      'Pricing is often blamed because it’s visible',
-      'Buyers usually don’t understand when to use the product',
-      'Lowering price rarely fixes confusion',
+      'Visible problems get blamed first',
+      'Real objection is usually timing or clarity, not cost',
+      'Price cuts don\'t fix confusion',
     ],
     applications: [
       'strong interest, low conversion',
@@ -39,21 +39,21 @@ const thinkingModules: ThinkingData[] = [
   {
     title: 'What looks like demand but isn’t',
     description:
-      'A lot of positive feedback is social politeness. Real demand behaves differently: it creates pressure, deadlines, and clear commitments.',
+      'Positive feedback feels like a signal, but it often isn\'t. Real demand shows up as pressure—urgency, deadlines, bringing in decision-makers.',
     audioUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3',
     transcript: [
-      'Early conversations can feel exciting, especially when people say they love the idea. That is useful but not enough.',
-      'Signal quality matters more than signal volume. A small number of urgent buyers beats broad casual interest.',
-      'I look for behavior change: do they bring stakeholders, ask implementation questions, or ask for a start date?',
+      'People are polite. They say nice things. That\'s not the same as wanting to buy.',
+      'One serious buyer who\'s asking when can we start is worth more than ten people who say this is great.',
+      'I look for what changes: Are they bringing in stakeholders? Asking how to implement it? Talking about a timeline?',
     ],
     insights: [
-      'Interest is often politeness, not intent',
-      'Early traction can be misleading',
-      'Real demand shows up as urgency',
+      'Politeness looks like demand but isn\'t',
+      'True signal is urgency, not enthusiasm',
+      'Watch for behavior change, not compliments',
     ],
     applications: [
-      'lots of demos, few closes',
-      'positive feedback, no buying',
+      'lots of demos, very few closes',
+      'strong compliments, but no one\'s ready to commit',
     ],
   },
 ];
@@ -81,17 +81,22 @@ function App() {
       </a>
       <main id="main-content" className="page">
       <HeroSection
-        headline="A working view into how Patrick Marcotte thinks"
-        subtext="Short, direct thinking modules for teams that need clearer decisions."
-        ctaLabel="Book a Decision Sprint"
+        headline="What's actually going on here?"
+        subtext="A few ways I work through that question with teams when something doesn't add up."
+        ctaLabel="Get a clear read"
         ctaHref="#cta"
       />
 
       <section className="section" aria-labelledby="context-heading">
         <h2 id="context-heading">Context</h2>
         <p>
-          This page is meant to be used, not skimmed. Each module shows a compact argument,
-          supporting media, transcript, and practical situations where the pattern shows up.
+          You can skim this, but it works better if you don't.
+        </p>
+        <p>
+          Each piece below is a short way of looking at a situation: what usually shows up, what's often actually happening underneath, and where it tends to appear in the real world.
+        </p>
+        <p>
+          If something feels familiar, it probably is.
         </p>
       </section>
 
@@ -114,7 +119,19 @@ function App() {
       </section>
 
       <AboutSection
-        narrative="I work with founders and product teams when decisions are muddy and the signal is noisy. The work is practical: clarify the real problem, tighten the decision path, and move."
+        heading="A bit of context"
+        narrative={`I've spent most of my career in situations where the stakes are real and the signal isn't clear.
+
+That's been true inside public companies, private equity-backed businesses, and global education organizations\u2014where decisions affect real revenue, teams, and outcomes.
+
+I've led product, go-to-market, and operations at scale, including business units responsible for over $150M in revenue across 175 countries.
+
+These days, I'm usually brought in when something doesn't add up.
+
+The product is there. The effort is there.
+But the results don't match.
+
+My role is to get clear on what's actually happening, remove what isn't the problem, and help teams decide what to do next.`}
         socialLinks={[
           {
             label: 'LinkedIn',
@@ -127,25 +144,29 @@ function App() {
         ]}
       />
 
+      <section className="section transition-heading" aria-labelledby="transition-id">
+        <h2 id="transition-id">If this is the kind of thinking you want in the room, here's how that works.</h2>
+      </section>
+
       <OfferSection
         name="Decision Sprint"
-        explanation="A focused engagement to diagnose the core decision problem, test assumptions, and leave with a practical decision path your team can execute right away."
+        explanation="A focused engagement to diagnose what's really happening, test the most important assumptions, and leave with a clear decision path your team can execute."
         priceRange="$3,000–$8,000"
         timeline="1–2 weeks"
       />
 
       <div id="cta">
         <CTASection
-          headline="If this matches how you think, let’s talk."
-          description="Reach out for advisory support or speaking engagements."
+          headline="Let's talk."
+          description=""
           buttons={[
             {
-              label: 'Reach out for advisory',
-              href: 'mailto:patrick@example.com?subject=Advisory%20Inquiry',
+              label: 'Get a clear read',
+              href: 'mailto:patrick@example.com?subject=Clear%20Read%20Request',
             },
             {
-              label: 'Invite for speaking',
-              href: 'mailto:patrick@example.com?subject=Speaking%20Engagement',
+              label: 'Talk to me',
+              href: 'mailto:patrick@example.com?subject=Advisory%20Inquiry',
             },
             {
               label: 'Connect on LinkedIn',

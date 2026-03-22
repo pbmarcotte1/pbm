@@ -1,4 +1,5 @@
 type AboutSectionProps = {
+  heading?: string;
   narrative: string;
   socialLinks: {
     label: string;
@@ -6,11 +7,15 @@ type AboutSectionProps = {
   }[];
 };
 
-export function AboutSection({ narrative, socialLinks }: AboutSectionProps) {
+export function AboutSection({ heading = 'About', narrative, socialLinks }: AboutSectionProps) {
+  const paragraphs = narrative.split('\n\n').filter(Boolean);
+
   return (
     <section className="section" aria-labelledby="about-heading">
-      <h2 id="about-heading">About</h2>
-      <p>{narrative}</p>
+      <h2 id="about-heading">{heading}</h2>
+      {paragraphs.map((para) => (
+        <p key={para}>{para}</p>
+      ))}
       <ul className="social-list" aria-label="Social links">
         {socialLinks.map((link) => (
           <li key={link.href}>
