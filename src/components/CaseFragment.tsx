@@ -1,4 +1,8 @@
+import { CaseStudyIcon } from './CaseStudyIcon';
+
 type CaseFragmentProps = {
+  iconKey: 'conversion' | 'signal';
+  iconLabel: string;
   situation: string;
   mistaken_assumption: string;
   actual_issue: string;
@@ -6,17 +10,22 @@ type CaseFragmentProps = {
 };
 
 export function CaseFragment({
+  iconKey,
+  iconLabel,
   situation,
   mistaken_assumption,
   actual_issue,
   outcome,
 }: CaseFragmentProps) {
   return (
-    <article className="case-fragment" aria-label={`Case fragment: ${situation}`}>
-      <h3>{situation}</h3>
+    <article className="case-fragment" aria-label={`Case study: ${situation}`}>
+      <div className="case-header">
+        <CaseStudyIcon iconKey={iconKey} label={iconLabel} />
+        <h3>{situation}</h3>
+      </div>
       <dl>
         <div>
-          <dt>Mistaken assumption</dt>
+          <dt>Stated issue</dt>
           <dd>{mistaken_assumption}</dd>
         </div>
         <div>

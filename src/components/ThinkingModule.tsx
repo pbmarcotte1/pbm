@@ -1,8 +1,9 @@
-import { useId } from 'react';
+import { Link } from 'react-router-dom';
 
 type ThinkingModuleProps = {
   title: string;
   description: string;
+  id: string;
   videoUrl?: string;
   audioUrl?: string;
   transcript: string | string[];
@@ -13,19 +14,17 @@ type ThinkingModuleProps = {
 export function ThinkingModule({
   title,
   description,
+  id,
   videoUrl,
   audioUrl,
   transcript,
   insights,
   applications,
 }: ThinkingModuleProps) {
-  const transcriptId = useId();
-  const transcriptParagraphs = Array.isArray(transcript) ? transcript : [transcript];
-
   return (
-    <article className="thinking-module" aria-labelledby={`${transcriptId}-title`}>
+    <article className="thinking-module" aria-labelledby="module-title">
       <header>
-        <h3 id={`${transcriptId}-title`}>{title}</h3>
+        <h3 id="module-title">{title}</h3>
       </header>
 
       {(videoUrl || audioUrl) && (
@@ -50,22 +49,16 @@ export function ThinkingModule({
 
       <p>{description}</p>
 
-      <section aria-labelledby={`${transcriptId}-transcript-heading`}>
-        <h4 id={`${transcriptId}-transcript-heading`} className="sr-only">
-          Transcript
-        </h4>
-        <details className="transcript-details">
-          <summary className="text-button">Transcript</summary>
-          <div id={`${transcriptId}-transcript-content`} className="transcript">
-            {transcriptParagraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-        </details>
+      <section>
+        <p>
+          <Link to={`/transcript/${id}`} className="text-button">
+            Read full transcript
+          </Link>
+        </p>
       </section>
 
-      <section aria-labelledby={`${transcriptId}-insights`}>
-        <h4 id={`${transcriptId}-insights`}>Key Observations</h4>
+      <section aria-labelledby="insights-heading">
+        <h4 id="insights-heading">Key Observations</h4>
         <ul>
           {insights.map((insight) => (
             <li key={insight}>{insight}</li>
@@ -73,8 +66,8 @@ export function ThinkingModule({
         </ul>
       </section>
 
-      <section aria-labelledby={`${transcriptId}-applications`}>
-        <h4 id={`${transcriptId}-applications`}>Where this applies</h4>
+      <section aria-labelledby="applications-heading">
+        <h4 id="applications-heading">Where this applies</h4>
         <ul>
           {applications.map((application) => (
             <li key={application}>{application}</li>

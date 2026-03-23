@@ -3,13 +3,17 @@
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   line-height: 1.5;
-  --bg: #f8f8f6;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --text: #1f2933;
-  --muted: #4a5a67;
-  --border: #d9e0e5;
-  --accent: #1f7a8c;
-  --accent-strong: #175b68;
+  --text: #111111;
+  --muted: #4b5563;
+  --border: #d1d5db;
+  --accent: #13c1e8;
+  --accent-strong: #0b9fc1;
+  --radius-sm: 0.35rem;
+  --radius-md: 0.45rem;
+  --section-space-desktop: 2.25rem;
+  --section-space-mobile: 1.6rem;
 }
 
 * {
@@ -30,11 +34,11 @@ a {
   position: absolute;
   left: 0.75rem;
   top: -48px;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--border);
   background: var(--surface);
   padding: 0.5rem 0.75rem;
   z-index: 10;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
 }
 
 .skip-link:focus-visible {
@@ -44,17 +48,15 @@ a {
 .page {
   max-width: 960px;
   margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+  padding: 2.25rem 1.1rem 3.5rem;
 }
 
 .section {
-  padding: 2.75rem 0;
-  border-top: 1px solid var(--border);
+  padding: var(--section-space-desktop) 0;
 }
 
 .hero {
-  border-top: none;
-  padding-top: 1.5rem;
+  padding-top: 0.5rem;
 }
 
 h1,
@@ -73,6 +75,8 @@ h1 {
 h2 {
   font-size: clamp(1.35rem, 3vw, 2rem);
   letter-spacing: -0.01em;
+  border-left: 4px solid var(--accent);
+  padding-left: 0.55rem;
 }
 
 h3 {
@@ -98,22 +102,22 @@ p {
 
 .button {
   display: inline-block;
-  border: 1px solid var(--accent);
-  background: var(--surface);
-  color: var(--accent-strong);
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
   padding: 0.7rem 1rem;
   text-decoration: none;
   font-weight: 500;
   min-height: 44px;
-  border-radius: 0.65rem;
+  border-radius: var(--radius-md);
   transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
 }
 
 .button:hover,
 .button:focus-visible {
   background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
+  color: #000;
+  border-color: var(--accent-strong);
 }
 
 a:focus-visible,
@@ -134,9 +138,9 @@ summary:focus-visible {
 .offer-card {
   border: 1px solid var(--border);
   background: var(--surface);
-  padding: 1rem;
+  padding: 1.1rem;
   overflow-wrap: anywhere;
-  border-radius: 0.85rem;
+  border-radius: var(--radius-md);
 }
 
 .media-stack {
@@ -160,6 +164,12 @@ summary:focus-visible {
   color: var(--accent-strong);
   cursor: pointer;
   margin: 0.2rem 0 0.65rem;
+  border-radius: var(--radius-sm);
+}
+
+.text-button:hover {
+  color: #000;
+  background: color-mix(in srgb, var(--accent) 20%, white);
 }
 
 .transcript-details {
@@ -184,6 +194,30 @@ summary:focus-visible {
   gap: 0.8rem;
 }
 
+.case-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.case-icon {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  background: color-mix(in srgb, var(--accent) 28%, white);
+  border: 1px solid var(--border);
+  flex: 0 0 auto;
+}
+
+.case-icon svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
 .case-fragment dt {
   font-weight: 600;
   margin-bottom: 0.2rem;
@@ -194,7 +228,7 @@ summary:focus-visible {
 }
 
 .cta {
-  padding-bottom: 0;
+  padding-bottom: var(--section-space-desktop);
 }
 
 .transition-heading h2 {
@@ -203,10 +237,26 @@ summary:focus-visible {
   letter-spacing: 0;
 }
 
-.transition-heading h2 {
-  font-size: 1.1rem;
-  font-weight: 400;
-  letter-spacing: 0;
+.about-content {
+  display: grid;
+  gap: 1.2rem;
+  align-items: start;
+  margin-bottom: 0.9rem;
+}
+
+.about-name {
+  margin: -0.15rem 0 1rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.about-headshot {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid var(--border);
 }
 
 .social-list {
@@ -221,6 +271,11 @@ summary:focus-visible {
 .social-list a {
   text-decoration: underline;
   color: var(--accent-strong);
+  border-radius: var(--radius-sm);
+}
+
+.social-list a:hover {
+  background: color-mix(in srgb, var(--accent) 18%, white);
 }
 
 .sr-only {
@@ -236,6 +291,18 @@ summary:focus-visible {
 }
 
 @media (max-width: 520px) {
+  .page {
+    padding: 1.5rem 0.95rem 2.5rem;
+  }
+
+  .section {
+    padding: var(--section-space-mobile) 0;
+  }
+
+  .cta {
+    padding-bottom: var(--section-space-mobile);
+  }
+
   .button-row .button {
     width: 100%;
     text-align: center;
@@ -246,5 +313,121 @@ summary:focus-visible {
   .module-grid,
   .case-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-content {
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Transcript Page & Blog-like styling */
+.page-footer {
+  margin-top: 2.5rem;
+  padding: 0.65rem 1.1rem 2.25rem;
+  background: color-mix(in srgb, var(--accent) 7%, white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.page-footer .section {
+  padding: 1.75rem 0;
+}
+
+.page-footer .section:first-of-type {
+  padding-top: 1.5rem;
+}
+
+.page-footer .section:last-of-type {
+  padding-bottom: 0;
+}
+
+.page-footer .cta {
+  padding-bottom: 0;
+}
+
+.transcript-page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  color: #000;
+  background: color-mix(in srgb, var(--accent) 28%, white);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.back-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.transcript-header {
+  margin-bottom: 3rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.transcript-header h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  color: var(--text);
+}
+
+.transcript-meta {
+  font-size: 1.0625rem;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 500;
+}
+
+.transcript-content p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 1.5rem 0;
+  color: var(--text);
+}
+
+.transcript-content p:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  .transcript-page {
+    padding-top: 0.25rem;
+  }
+
+  .transcript-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .transcript-meta {
+    font-size: 0.95rem;
+  }
+
+  .page-footer {
+    margin-top: 2rem;
+    padding: 0.45rem 0.95rem 1.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .page-footer .section {
+    padding: 1.35rem 0;
   }
 }

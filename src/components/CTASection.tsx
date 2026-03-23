@@ -16,7 +16,7 @@ export function CTASection({ headline, description, buttons }: CTASectionProps) 
       {description && <p>{description}</p>}
       <div className="button-row">
         {buttons.map((button) => (
-          <a key={button.href} className="button" href={button.href}>
+          <a key={button.href} className="button" href={button.href} target="_blank" rel="noreferrer">
             {button.label}
           </a>
         ))}
