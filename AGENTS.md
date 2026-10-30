@@ -1,5 +1,7 @@
 # Copy conventions
 
+- Keep the opening order: name and portrait, co-founder/advisor role list, then “I figure out what students and educators need, build it, and stay with it until it works.”
+
 - Use **lead / leads / led / leading**, not **run / runs / ran / running**, when describing Patrick's leadership of companies or business units. Apply this to visible copy, metadata, and structured data, including when importing updated HTML or Markdown that uses the older wording.
 - This is contextual, not a global word replacement: phrases such as “Implementation runs through all of that work,” “the company ran on,” operational uses such as running caseloads, and commands such as `npm run build` are unrelated and should stay unchanged.
 - Keep the hands-on-learning paragraph in “Now”: “I believe in learning through hands-on experience, and I occasionally write and present about what I’m learning.” Do not restore the older first-customer sentence in its place when importing copy.
