@@ -74,7 +74,7 @@ Project-local SEO skills live in `.agents/skills/`. See [the SEO audit and submi
 
 ## Analytics
 
-Google Analytics 4 uses measurement ID `G-2GYNB4DNN0`. The standard async Google tag is in `src/pages/index.astro`, included in production builds (including build previews), but excluded from `npm run dev`. It sends the default page-view event; there are no custom tracking events. Check GA's Realtime report after visiting the live site to confirm receipt. Analytics does not establish search indexing.
+Google Analytics 4 uses measurement ID `G-84MPH330JV` in the replacement property. The standard async Google tag is in `src/pages/index.astro`, included in production builds (including build previews), but excluded from `npm run dev`. It sends the default page-view event; there are no custom tracking events. Check GA's Realtime report after visiting the live site to confirm receipt. Analytics does not establish search indexing.
 
 ## Backup and restore
 
