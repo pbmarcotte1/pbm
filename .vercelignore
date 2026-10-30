@@ -1,0 +1,17 @@
+# Local credentials must never be uploaded.
+.env*
+
+# Agent instructions and SEO planning are development-only.
+.agents/
+.pi/
+skills-lock.json
+AGENTS.md
+docs/
+
+# Retain the previous site's material locally, but don't publish it.
+archive/
+public/media/
+src/content/
+scripts/
+pbm_image.png
+pm_icon.png

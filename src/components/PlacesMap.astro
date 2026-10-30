@@ -1,0 +1,142 @@
+---
+import map from '../assets/places.svg?raw';
+import places from '../data/places.json';
+---
+
+<section class="places-map" aria-labelledby="places">
+  <h2 id="places">Places</h2>
+  <p class="map-help" hidden>Choose a numbered place, or use Previous and Next to follow the route.</p>
+  <div class="mapwrap" set:html={map} />
+  <div class="stepper" hidden>
+    <button type="button" class="place-prev" aria-label="Previous place" aria-controls="place-detail">‹ Prev</button>
+    <span class="stepcount"></span>
+    <button type="button" class="place-next" aria-label="Next place" aria-controls="place-detail">Next ›</button>
+  </div>
+  <div class="place-detail" id="place-detail" role="status" aria-live="polite" aria-atomic="true" hidden>
+    <h3 class="place-name"></h3>
+    <p class="place-description"></p>
+  </div>
+  <details class="places-transcript">
+    <summary>Read all seven places</summary>
+    <ol>
+      {places.map((place) => (
+        <li>
+          <h3>{place.name}</h3>
+          <p>{place.description}</p>
+        </li>
+      ))}
+    </ol>
+  </details>
+</section>
+
+<script>
+  import places from '../data/places.json';
+
+  const root = document.querySelector<HTMLElement>('.places-map');
+  if (root) {
+    const marks = Array.from(root.querySelectorAll<SVGGElement>('.stop'));
+    const panel = root.querySelector<HTMLElement>('.place-detail')!;
+    const name = panel.querySelector<HTMLElement>('.place-name')!;
+    const description = panel.querySelector<HTMLElement>('.place-description')!;
+    const count = root.querySelector<HTMLElement>('.stepcount')!;
+    let current = places.length - 1;
+
+    function show(index: number) {
+      current = (index + places.length) % places.length;
+      const place = places[current];
+      marks.forEach((mark, i) => {
+        mark.classList.toggle('on', i === current);
+        mark.setAttribute('aria-pressed', String(i === current));
+      });
+      name.textContent = `${current + 1}. ${place.name}`;
+      description.textContent = place.description;
+      count.textContent = `${current + 1} of ${places.length}`;
+    }
+
+    marks.forEach((mark, index) => {
+      mark.setAttribute('role', 'button');
+      mark.setAttribute('tabindex', '0');
+      mark.setAttribute('aria-controls', 'place-detail');
+      mark.addEventListener('click', () => show(index));
+      mark.addEventListener('focus', () => show(index));
+      mark.addEventListener('pointerenter', (event) => {
+        if (event.pointerType === 'mouse' && matchMedia('(hover: hover)').matches) show(index);
+      });
+      mark.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          show(index);
+        } else if (['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+          event.preventDefault();
+          const next = event.key === 'Home' ? 0 : event.key === 'End' ? places.length - 1
+            : index + (event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : -1);
+          show(next);
+          marks[current].focus();
+        }
+      });
+    });
+    root.querySelector('.place-prev')!.addEventListener('click', () => show(current - 1));
+    root.querySelector('.place-next')!.addEventListener('click', () => show(current + 1));
+    show(current);
+    panel.hidden = false;
+    root.querySelector<HTMLElement>('.stepper')!.hidden = false;
+    root.querySelector<HTMLElement>('.map-help')!.hidden = false;
+  }
+</script>
+
+<style is:global>
+  .places-map .map-help { font-size: 0.95rem; color: var(--muted); }
+  .places-map .mapwrap { min-width: 0; }
+  .places-map .usmap { display: block; width: 100%; height: auto; }
+  .places-map .land { fill: var(--accent-soft); }
+  .places-map .borders { fill: none; stroke: var(--paper); stroke-width: 1; }
+  .places-map .route { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; stroke-linecap: round; }
+  .places-map .dot { fill: var(--accent); stroke: var(--paper); stroke-width: 1.5; }
+  .places-map .lead { stroke: var(--muted); stroke-width: 1; }
+  .places-map .hit { fill: transparent; }
+  .places-map .badge { fill: var(--ink); }
+  .places-map .btxt { fill: var(--paper); font: 500 13px var(--mono); text-anchor: middle; pointer-events: none; }
+  .places-map .stop[role="button"] { cursor: pointer; }
+  .places-map .stop[role="button"]:hover .badge,
+  .places-map .stop.on .badge { fill: var(--accent); }
+  .places-map .stop:focus-visible { outline: none; }
+  .places-map .stop:focus-visible .badge { stroke: var(--accent); stroke-width: 3; stroke-dasharray: 2 2; }
+  .places-map .place-detail {
+    padding: 1rem 1.25rem;
+    background: var(--accent-soft);
+    border-radius: 4px;
+    font-size: 1rem;
+    line-height: 1.5;
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    min-height: 12rem;
+  }
+  .places-map h3 { margin: 0; font: 700 1.1rem/1.35 var(--display); }
+  .places-map .stepper { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .places-map .stepper button {
+    font: 500 0.85rem var(--mono);
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    min-height: 44px;
+    padding: 0 1rem;
+    cursor: pointer;
+  }
+  .places-map .stepper button:hover { border-color: var(--accent); }
+  .places-map .stepper button:active { background: var(--accent-soft); }
+  .places-map .stepcount { font: 0.8rem var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .places-map .places-transcript { font-size: 1rem; }
+  .places-map .places-transcript summary { cursor: pointer; color: var(--accent); padding-block: 0.5rem; }
+  .places-map summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .places-map .places-transcript ol { padding-left: 1.5rem; display: grid; gap: 1.5rem; }
+  .places-map .places-transcript li > * + * { margin-top: 0.5rem; }
+  @media (max-width: 640px) {
+    .places-map .badge { r: 18; }
+    .places-map .btxt { font-size: 20px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .places-map .badge { transition: fill 0.15s; }
+  }
+</style>

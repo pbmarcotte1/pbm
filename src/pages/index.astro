@@ -1,0 +1,228 @@
+---
+import { Image, getImage } from 'astro:assets';
+import portrait from '../assets/patrick-marcotte.webp';
+import CareerTimeline from '../components/CareerTimeline.astro';
+import PlacesMap from '../components/PlacesMap.astro';
+import Questions from '../components/Questions.astro';
+import person from '../data/person.json';
+import questions from '../data/questions.json';
+import '../styles.css';
+
+const title = 'Patrick Marcotte | Co-founder & CEO of Lessi';
+const description = 'Patrick Marcotte figures out what students and educators need, builds it, and stays with it until it works. Co-founder and CEO of Lessi.';
+const canonicalURL = new URL('/', Astro.site).href;
+const socialImage = await getImage({ src: portrait, width: 640, format: 'jpg' });
+const socialImageURL = new URL(socialImage.src, Astro.site).href;
+const personId = `${canonicalURL}#person`;
+const profileId = `${canonicalURL}#profile`;
+const structuredData = [{
+  ...person,
+  '@id': personId,
+  url: canonicalURL,
+  image: socialImageURL,
+  mainEntityOfPage: { '@id': profileId },
+}, {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: questions.map(({ question, paragraphs }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: paragraphs.join(' ') },
+  })),
+}, {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': profileId,
+  url: canonicalURL,
+  name: title,
+  description,
+  inLanguage: 'en-US',
+  mainEntity: { '@id': personId },
+}];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    {import.meta.env.PROD && (
+      <>
+        <!-- Google Analytics: excluded from the development server. -->
+        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2GYNB4DNN0"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-2GYNB4DNN0');
+        </script>
+      </>
+    )}
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="author" content={person.name} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#F6F7F5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101513" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={person.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content={socialImage.attributes.width} />
+    <meta property="og:image:height" content={socialImage.attributes.height} />
+    <meta property="og:image:alt" content={person.name} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content={socialImageURL} />
+    <meta name="twitter:image:alt" content={person.name} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png?v=2" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="wrap">
+      <header>
+        <h1>Patrick<br />Marcotte</h1>
+        <Image
+          class="portrait"
+          src={portrait}
+          alt="Patrick Marcotte"
+          width={352}
+          height={352}
+          widths={[176, 256, 352, 528]}
+          sizes="(max-width: 640px) clamp(80px, 26vw, 128px), 176px"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="opening-copy">
+          <p class="lede">I figure out what students and educators need, build it, and stay with it until it works.</p>
+          <ul class="opening-role" role="list" aria-label="Current roles">
+            <li>Co-founder and CEO of Lessi</li>
+            <li><span class="role-divider" aria-hidden="true">|</span>Advisor to education companies and investors</li>
+          </ul>
+        </div>
+      </header>
+
+      <main id="main-content" tabindex="-1">
+        <section aria-labelledby="now">
+          <h2 id="now">Now</h2>
+          <p>Lessi, based in St.&nbsp;Paul, MN, USA, turns district guidance and student IEPs into instruction, progress, and growth. I co-founded it and serve as CEO.</p>
+          <p>Alongside Lessi, I take on fractional executive and advisory work. My largest client is an international school group, where I work with leadership on AI, product, and marketing. They were also my first, and we've worked together for more than six years.</p>
+          <p>I believe in learning through hands-on experience, and I occasionally write and present about what I’m learning.</p>
+        </section>
+
+        <CareerTimeline />
+
+        <section aria-labelledby="awards">
+          <h2 id="awards">Learning A-Z awards</h2>
+          <p>Recognition for Learning A-Z products, 2016 to 2019.</p>
+          <ul class="awards">
+            <li><span class="yr">2019</span><div><span class="aw">SIIA CODiE, Best Reading/Writing/Literature Solution</span> <span class="role">Raz-Plus</span> <a class="src" href="https://www.learninga-z.com/user_area/content_media/raw/raz-plus-2019CODiE.pdf">Release</a></div></li>
+            <li><span class="yr">2019</span><div><span class="aw">EdTech Awards, Cool Tool</span> <span class="role">Headsprout</span> <a class="src" href="https://www.learninga-z.com/site/company/news/edtech-awards-2019">Release</a></div></li>
+            <li><span class="yr">2018</span><div><span class="aw">SIIA CODiE, Best Solution for Special Needs Students; Best Science Solution</span> <span class="role">Raz-Plus, Science A-Z</span> <a class="src" href="https://www.learninga-z.com/site/company/news/codie-awards-winner-2018">Release</a></div></li>
+            <li><span class="yr">2018</span><div><span class="aw">8 BESSIE Awards</span> <span class="role">Raz-Plus, Headsprout, Writing A-Z, Science A-Z</span> <a class="src" href="https://www.learninga-z.com/user_area/content_media/raw/2018-awards-summary.pdf">Summary</a></div></li>
+            <li><span class="yr">2017</span><div><span class="aw">Tech &amp; Learning Award of Excellence</span> <span class="role">Raz-Plus</span> <a class="src" href="https://www.learninga-z.com/site/company/news/tech-learning-award-2018">Release</a></div></li>
+            <li><span class="yr">2016</span><div><span class="aw">10 BESSIE Awards, most of any company</span> <a class="src" href="https://www.globenewswire.com/news-release/2016/04/28/833959/0/en/Learning-A-Z-Wins-10-2016-BESSIE-Awards-Making-It-The-Most-Recognized-Company-Again-in-2016.html">Release</a></div></li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="civic">
+          <h2 id="civic">Civic data</h2>
+          <ul class="ledger">
+            <li>
+              <span class="when">2020</span>
+              <div class="what">
+                <a class="org" href="https://chartpeople.com">ChartPeople</a>
+                <span class="role">Founder</span>
+                <p>When COVID hit in March 2020, I launched ChartPeople's dashboards with county, state, and national data. They reached more than 10,000 users.</p>
+              </div>
+            </li>
+            <li>
+              <span class="when">2015</span>
+              <div class="what">
+                <a class="org" href="https://chicagodata.org">ChicagoData.org</a>
+                <span class="role">Co-founder</span>
+                <p>We charted Chicago crime by type for Alderman Harry Osterman's office using Standard Celeration Charts, a behavior-analysis tool. The office used the charts to target its safety work, and we turned the project into a nonprofit.</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <PlacesMap />
+
+        <section aria-labelledby="edu">
+          <h2 id="edu">Education</h2>
+          <ul class="plain">
+            <li><span class="org-sm">MA, Behavior Analysis</span> <span class="role">The Chicago School</span></li>
+            <li><span class="org-sm">BA, Psychology</span> <span class="role">Hofstra University</span></li>
+            <li><span class="org-sm">Executive Education, Design Thinking</span> <span class="role">Kellogg School of Management, Northwestern</span></li>
+          </ul>
+        </section>
+
+        <Questions />
+
+        <section aria-labelledby="contact">
+          <h2 id="contact">Contact</h2>
+          <div class="contact">
+            <span class="email">
+              <a id="addr" href="mailto:pbmarcotte@gmail.com">pbmarcotte@gmail.com</a>
+              <button type="button" id="copy" aria-label="Copy email address" hidden>Copy</button>
+            </span>
+            <a href="https://www.linkedin.com/in/patrick-b-marcotte/">LinkedIn</a>
+          </div>
+          <span id="copy-status" class="sr-only" role="status" aria-live="polite"></span>
+        </section>
+      </main>
+
+      <footer>Patrick Marcotte · St. Paul, Minnesota</footer>
+    </div>
+
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('#copy');
+      const address = document.querySelector<HTMLAnchorElement>('#addr');
+      const status = document.querySelector<HTMLElement>('#copy-status');
+
+      if (button && address && status) {
+        button.hidden = false;
+        let resetTimer: ReturnType<typeof setTimeout>;
+
+        button.addEventListener('click', async () => {
+          clearTimeout(resetTimer);
+          status.textContent = '';
+          try {
+            await navigator.clipboard.writeText(address.textContent?.trim() ?? '');
+            button.textContent = 'Copied';
+            status.textContent = 'Email address copied to clipboard.';
+          } catch {
+            const selection = window.getSelection();
+            if (selection) {
+              const range = document.createRange();
+              range.selectNodeContents(address);
+              selection.removeAllRanges();
+              selection.addRange(range);
+              button.textContent = 'Selected';
+              status.textContent = 'Email address selected. Use your device’s copy command to copy it.';
+            } else {
+              status.textContent = 'Could not copy. Use the email link to get in touch.';
+            }
+          }
+          resetTimer = setTimeout(() => {
+            button.textContent = 'Copy';
+          }, 2000);
+        });
+      }
+    </script>
+  </body>
+</html>

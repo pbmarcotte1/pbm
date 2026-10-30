@@ -1,0 +1,45 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Patrick Marcotte",
+  "url": "https://patrickmarcotte.com",
+  "jobTitle": "Co-founder and CEO",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Lessi",
+    "url": "https://lessi.ai"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "St. Paul",
+    "addressRegion": "MN",
+    "addressCountry": "US"
+  },
+  "alumniOf": [
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "The Chicago School"
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "Hofstra University"
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "Kellogg School of Management, Northwestern University"
+    }
+  ],
+  "knowsAbout": [
+    "K-12 implementation",
+    "special education",
+    "science of reading",
+    "LETRS",
+    "education technology",
+    "M&A in education",
+    "go-to-market for school districts",
+    "behavior analysis"
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/patrick-b-marcotte/"
+  ]
+}
