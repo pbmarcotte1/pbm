@@ -6,6 +6,7 @@
 - This is contextual, not a global word replacement: phrases such as “Implementation runs through all of that work,” “the company ran on,” operational uses such as running caseloads, and commands such as `npm run build` are unrelated and should stay unchanged.
 - Keep the hands-on-learning paragraph in “Now”: “I believe in learning through hands-on experience, and I occasionally write and present about what I’m learning.” Do not restore the older first-customer sentence in its place when importing copy.
 - Keep the location in “Now” as “St. Paul, MN, USA.”
+- Describe the psychiatric-care roles as “My first jobs after college,” not “My first jobs”; Patrick had other jobs before those roles.
 - The “Why did you leave Voyager Sopris?” FAQ and its entire answer were explicitly removed. Do not restore them when importing older copy unless Patrick explicitly asks.
 
 # SEO maintenance
